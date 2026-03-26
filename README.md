@@ -2,9 +2,24 @@
 
 Windows native configuration for Gentleman.Dots development environment.
 
-**NOTE**: This repository contains **configuration files only**, not tool manifests.
-Tools are installed from Scoop's official [main](https://github.com/ScoopInstaller/scoop/wiki/Buckets#main-bucket) 
-and [extras](https://github.com/ScoopInstaller/Extras) buckets.
+This repository contains:
+- **Configuration files** for Neovim and other tools
+- **Custom Scoop bucket** (`bucket/`) with Gentleman ecosystem tools
+
+## Buckets
+
+### Official Scoop Buckets
+Install tools from Scoop's official buckets:
+- [main](https://github.com/ScoopInstaller/scoop/wiki/Buckets#main-bucket) - Core tools
+- [extras](https://github.com/ScoopInstaller/Extras) - Additional tools
+
+### Custom Bucket (gentleman-dots)
+This repository includes a custom bucket with Gentleman ecosystem tools:
+
+```powershell
+scoop bucket add gentleman-dots https://github.com/Gentleman-Programming/gentleman-dots-windows.git
+scoop install gentleman-dots/gentle-ai gentleman-dots/engram
+```
 
 ## Prerequisites
 
@@ -52,6 +67,15 @@ irm https://raw.githubusercontent.com/SamuelCastrillon/gentleman-dots-windows/ma
 ```
 
 ## Included Tools
+
+### Gentleman Bucket (gentleman-dots)
+
+| Tool | Description |
+|------|-------------|
+| gentle-ai | AI Gentle Stack - Ecosystem configurator for AI coding agents |
+| engram | Persistent memory system for AI coding agents (MCP server, CLI, TUI) |
+
+### Official Buckets
 
 | Tool | Bucket | Description |
 |------|--------|-------------|
