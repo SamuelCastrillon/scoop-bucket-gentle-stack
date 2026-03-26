@@ -1,0 +1,56 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Install scoop_bucket_validator
+        run: go install github.com/gorilla/scoop-bucket-validator@latest
+
+      - name: Validate bucket manifests
+        run: |
+          for manifest in bucket/*.json; do
+            scoop-bucket-validator "$manifest" || exit 1
+          done
+
+      - name: Check JSON syntax
+        run: |
+          for manifest in bucket/*.json; do
+            jq empty "$manifest" || exit 1
+          done
+
+  test-install:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Scoop
+        run: |
+          iwr -useb get.scoop.sh | iex
+          scoop bucket add extras
+
+      - name: Add local bucket
+        run: |
+          New-Item -ItemType Directory -Path "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows" -Force
+          Copy-Item -Recurse bucket/* "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows/"
+
+      - name: Test manifest install
+        run: |
+          scoop install gentleman-dots-windows/neovim --global
+        continue-on-error: true

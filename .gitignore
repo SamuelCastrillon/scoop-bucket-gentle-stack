@@ -1,0 +1,25 @@
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+
+# Scoop
+.gh-token
+.last-cleanup
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp

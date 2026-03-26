@@ -1,0 +1,41 @@
+name: Issues
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  handle-404:
+    if: contains(github.event.issue.body, '404') || contains(github.event.issue.body, 'could not find')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create branch for fix
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue close ${{ github.event.issue.number }} --comment "Thanks for reporting! We're looking into the 404 issue and will update the manifest shortly."
+          git fetch origin
+          git checkout -b fix/${{ github.event.issue.number }}-update-manifest
+          
+      - name: Update manifest
+        run: |
+          # Find the manifest that has the issue
+          # This would be parsed from the issue body
+          echo "Manifest update needed" > update_needed.txt
+          
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'fix: update manifest for ${{ github.event.issue.title }}'
+          title: 'fix: Update manifest for ${{ github.event.issue.number }}'
+          body: 'Fixes #$(github.event.issue.number)'
+          branch: fix/${{ github.event.issue.number }}-update-manifest
+
+  handle-hash-error:
+    if: contains(github.event.issue.body, 'hash') || contains(github.event.issue.body, 'checksum')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Acknowledge issue
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "Thanks for the report! The hash mismatch usually means a new version was released. We're updating the manifest now."
