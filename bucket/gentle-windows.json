@@ -1,12 +1,12 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gentle.Windows - 100% native Windows development environment — no WSL required",
   "homepage": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop",
   "license": {
     "identifier": "MIT",
     "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/blob/windows-only/LICENSE"
   },
-  "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v1.0.1-windows/gentle-windows-1.0.1-windows.zip",
+  "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v1.0.2-windows/gentle-windows-1.0.2-windows-windows.zip",
   "hash": "sha256:replace_with_actual_hash",
   "suggest": {
     "scoop": ">= 1.0.0"
