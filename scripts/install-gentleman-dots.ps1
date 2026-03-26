@@ -176,6 +176,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Success "All Gentleman.Dots tools installed successfully!"
+exit 0
 
 # Print next steps
 Write-Host "`n--- Next Steps ---" -ForegroundColor Yellow

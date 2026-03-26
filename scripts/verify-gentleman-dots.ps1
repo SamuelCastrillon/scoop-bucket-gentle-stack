@@ -86,7 +86,7 @@ Write-Host ""
 
 # Check scoop bucket
 Write-Host "Checking Scoop bucket..." -NoNewline
-if (scoop list | Select-String -Pattern "gentleman-dots-windows" -Quiet) {
+if (scoop bucket list | Select-String -Pattern "gentleman-dots-windows" -Quiet) {
     Write-Host " [PASS]" -ForegroundColor Green
     $passedChecks += "Scoop bucket"
 } else {
