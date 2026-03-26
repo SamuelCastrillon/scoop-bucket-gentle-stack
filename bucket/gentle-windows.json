@@ -1,22 +1,22 @@
 {
-  "version": "1.0.3",
-  "description": "Gentle.Windows - 100% native Windows development environment — no WSL required",
-  "homepage": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop",
-  "license": {
-    "identifier": "MIT",
-    "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/blob/windows-only/LICENSE"
-  },
-  "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v1.0.3-windows/gentle-windows-1.0.3-windows-windows.zip",
-  "hash": "sha256:531ce5c8bdbad3d424981f81c5894f46878b12b6d0fc367388784b05effb4a5f",
-  "suggest": {
-    "scoop": ">= 1.0.0"
-  },
-  "checkver": {
-    "github": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop",
-    "regex": "v([\\d.]+)-windows"
-  },
-  "autoupdate": {
-    "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v$version-windows/gentle-windows-$version-windows-windows.zip"
-  },
-  "notes": "This is a fork of Gentleman.Dots for native Windows development. Install Scoop first, then run: scoop install gentle-stack/gentle-windows"
+    "version": "1.0.2",
+    "description": "Gentle.Windows - 100% native Windows development environment — no WSL required",
+    "homepage": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop",
+    "license": {
+        "identifier": "MIT",
+        "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/blob/windows-only/LICENSE"
+    },
+    "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v1.0.2-windows/gentle-windows-1.0.2-windows-windows.zip",
+    "hash": "34aecdbad49e95d783325341e4b995aae4142ea170389e07b859cd60b641e707",
+    "suggest": {
+        "scoop": ">= 1.0.0"
+    },
+    "checkver": {
+        "github": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop",
+        "regex": "v([\\d.]+)-windows"
+    },
+    "autoupdate": {
+        "url": "https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop/releases/download/v$version-windows/gentle-windows-$version-windows-windows.zip"
+    },
+    "notes": "This is a fork of Gentleman.Dots for native Windows development. Install Scoop first, then run: scoop install gentle-stack/gentle-windows"
 }
