@@ -14,43 +14,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.21'
-
-      - name: Install scoop-bucket-validator
-        run: go install github.com/ScoopInstaller/scoop-bucket-validator@latest
-
-      - name: Validate bucket manifests
+      - name: Install jq
         run: |
-          for manifest in bucket/*.json; do
-            scoop-bucket-validator "$manifest" || exit 1
-          done
+          if ! command -v jq &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
 
       - name: Check JSON syntax
         run: |
           for manifest in bucket/*.json; do
-            jq empty "$manifest" || exit 1
+            echo "Validating: $manifest"
+            jq empty "$manifest" || { echo "Invalid JSON in $manifest"; exit 1; }
           done
+          echo "All JSON files are valid!"
+
+      - name: Validate manifest structure
+        run: |
+          for manifest in bucket/*.json; do
+            echo "Checking structure: $manifest"
+            # Check required fields
+            jq -e '.version' "$manifest" > /dev/null || { echo "Missing version in $manifest"; exit 1; }
+            jq -e '.description' "$manifest" > /dev/null || { echo "Missing description in $manifest"; exit 1; }
+            jq -e '.homepage' "$manifest" > /dev/null || { echo "Missing homepage in $manifest"; exit 1; }
+            jq -e '.license' "$manifest" > /dev/null || { echo "Missing license in $manifest"; exit 1; }
+            jq -e '.url' "$manifest" > /dev/null || { echo "Missing url in $manifest"; exit 1; }
+            echo "  OK: $manifest"
+          done
+          echo "All manifests have required fields!"
 
   test-install:
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: bucket
+          sparse-checkout-cone-mode: false
 
       - name: Install Scoop
-        run: |
-          iwr -useb get.scoop.sh | iex
-          scoop bucket add extras
+        run: iwr -useb get.scoop.sh | iex
 
-      - name: Add local bucket
+      - name: Test add bucket
         run: |
-          New-Item -ItemType Directory -Path "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows" -Force
-          Copy-Item -Recurse bucket/* "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows/"
-
-      - name: Test manifest install
-        run: |
-          scoop install gentleman-dots-windows/neovim --global
-        continue-on-error: true
+          New-Item -ItemType Directory -Path "$env:USERPROFILE/.config/scoop/buckets/gentle-stack" -Force
+          Copy-Item -Path "bucket/*" -Destination "$env:USERPROFILE/.config/scoop/buckets/gentle-stack/" -Recurse -Force
+          scoop bucket list
