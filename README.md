@@ -1,197 +1,24 @@
-# Gentleman.Dots Windows
+# Gentle Stack Scoop Bucket
 
-Windows native configuration for Gentleman.Dots development environment.
+Custom Scoop bucket for Gentleman Programming tools.
 
-This repository contains:
-- **Configuration files** for Neovim and other tools
-- **Custom Scoop bucket** (`bucket/`) with Gentleman ecosystem tools
-
-## Buckets
-
-### Official Scoop Buckets
-Install tools from Scoop's official buckets:
-- [main](https://github.com/ScoopInstaller/scoop/wiki/Buckets#main-bucket) - Core tools
-- [extras](https://github.com/ScoopInstaller/Extras) - Additional tools
-
-### Custom Bucket (gentle-stack)
-This repository includes a custom bucket with Gentleman ecosystem tools:
+## Install
 
 ```powershell
 scoop bucket add gentle-stack https://github.com/SamuelCastrillon/scoop-bucket-gentle-stack
-scoop install gentle-stack/gentle-ai gentle-stack/engram
+scoop install gentle-stack/gentle-ai gentle-stack/engram gentle-stack/gentle-windows
 ```
 
-## Prerequisites
+## Included Apps
 
-- Windows 10/11 (64-bit or ARM64)
-- [Scoop](https://scoop.sh) package manager
-
-### Install Scoop
-
-```powershell
-iwr -useb get.scoop.sh | iex
-```
-
-## Quick Start
-
-### 1. Add Scoop Buckets (if not already added)
-
-```powershell
-scoop bucket add main
-scoop bucket add extras
-```
-
-### 2. Install All Tools
-
-```powershell
-# Main bucket tools
-scoop install main/nvim main/nodejs-lts main/fd main/ripgrep main/fzf
-
-# Extras bucket tools
-scoop install extras/lazygit
-```
-
-### 3. Install Configuration
-
-Clone and copy the config files:
-
-```powershell
-git clone --depth 1 https://github.com/SamuelCastrillon/scoop-bucket-gentle-stack.git
-Copy-Item -Recurse scoop-bucket-gentle-stack/config/nvim/* $env:LOCALAPPDATA\nvim\
-```
-
-Or use the automated installer:
-
-```powershell
-irm https://raw.githubusercontent.com/SamuelCastrillon/scoop-bucket-gentle-stack/main/scripts/install-gentleman-dots.ps1 | iex
-```
-
-## Included Tools
-
-### Gentleman Bucket (gentle-stack)
-
-| Tool | Description |
-|------|-------------|
-| gentle-ai | AI Gentle Stack - Ecosystem configurator for AI coding agents |
-| engram | Persistent memory system for AI coding agents (MCP server, CLI, TUI) |
-
-### Official Buckets
-
-| Tool | Bucket | Description |
-|------|--------|-------------|
-| Neovim | main | Modern terminal text editor |
-| Node.js LTS | main | JavaScript runtime (LTS) |
-| fd | main | Fast alternative to `find` |
-| ripgrep | main | Fast alternative to `grep` |
-| fzf | main | Fuzzy finder |
-| LazyGit | extras | Terminal UI for Git |
-
-## Verification
-
-Verify your installation:
-
-```powershell
-irm https://raw.githubusercontent.com/SamuelCastrillon/scoop-bucket-gentle-stack/main/scripts/verify-gentleman-dots.ps1 | iex
-```
-
-Expected output: All checks should show `PASS`.
-
-## Troubleshooting
-
-### Scoop not found
-
-If `scoop` is not recognized, restart PowerShell or add Scoop to your PATH:
-
-```powershell
-# Add scoop shims to PATH for current session
-$env:PATH = "$env:USERPROFILE\scoop\shims;$env:PATH"
-```
-
-### Missing bucket
-
-If a tool install fails, make sure the bucket exists:
-
-```powershell
-scoop bucket add main
-scoop bucket add extras
-```
-
-### Update tools
-
-```powershell
-scoop update
-scoop update *
-```
-
-## Configuration
-
-### Structure
-
-```
-config/
-└── nvim/
-    ├── init.vim       # Main configuration
-    ├── plugins.vim    # Plugin configuration  
-    └── windows.vim    # Windows-specific overrides
-```
-
-### Windows Path Overrides
-
-The `config/nvim/windows.vim` file provides Windows-specific path translations:
-
-- `$HOME` → `%USERPROFILE%`
-- `$XDG_CONFIG_HOME` → `%APPDATA%`
-- `~/.config/nvim` → `%LOCALAPPDATA%\nvim`
-
-These are applied automatically when running Neovim on Windows.
-
-### Manual Configuration
-
-If you prefer manual setup, you can set environment variables:
-
-```powershell
-# PowerShell
-$env:XDG_CONFIG_HOME = "$env:APPDATA"
-$env:VIM = "$env:LOCALAPPDATA\nvim"
-```
-
-### Verify Config Location
-
-```vim
-:echo stdpath('config')
-```
-
-Should return a Windows-style path like `C:\Users\<you>\AppData\Local\nvim`.
-
-## Development
-
-### Local Testing
-
-Clone the repository and test locally:
-
-```powershell
-git clone https://github.com/SamuelCastrillon/scoop-bucket-gentle-stack.git
-cd scoop-bucket-gentle-stack
-
-# Run verification script
-./scripts/verify-gentleman-dots.ps1
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This configuration follows the same license as Gentleman.Dots. Individual tool licenses apply to their respective packages.
+| App | Description |
+|-----|-------------|
+| [gentle-ai](https://github.com/Gentleman-Programming/gentle-ai) | AI Gentle Stack - Ecosystem configurator for AI coding agents |
+| [engram](https://github.com/Gentleman-Programming/engram) | Persistent memory system for AI coding agents |
+| [gentle-windows](https://github.com/SamuelCastrillon/Gentleman.Dots-Windows-Scoop) | Native Windows development environment |
 
 ## Resources
 
 - [Scoop Documentation](https://scoop.sh)
 - [Scoop Buckets](https://github.com/ScoopInstaller/Bucket)
-- [Scoop Main Bucket](https://github.com/ScoopInstaller/Main)
-- [Scoop Extras Bucket](https://github.com/ScoopInstaller/Extras)
 - [Gentleman.Dots](https://github.com/gentleman-dots)
