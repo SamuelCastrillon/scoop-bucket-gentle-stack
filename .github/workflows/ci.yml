@@ -47,15 +47,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: bucket
-          sparse-checkout-cone-mode: false
 
       - name: Install Scoop
-        run: iwr -useb get.scoop.sh | iex
-
-      - name: Test add bucket
         run: |
-          New-Item -ItemType Directory -Path "$env:USERPROFILE/.config/scoop/buckets/gentle-stack" -Force
-          Copy-Item -Path "bucket/*" -Destination "$env:USERPROFILE/.config/scoop/buckets/gentle-stack/" -Recurse -Force
-          scoop bucket list
+          iwr -useb get.scoop.sh | iex
+          scoop bucket add extras
+
+      - name: Add local bucket
+        run: |
+          New-Item -ItemType Directory -Path "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows" -Force
+          Copy-Item -Recurse bucket/* "$env:USERPROFILE/.config/scoop/buckets/gentleman-dots-windows/"
+
+      - name: Test manifest install
+        run: |
+          scoop install gentleman-dots-windows/neovim --global
+        continue-on-error: true
