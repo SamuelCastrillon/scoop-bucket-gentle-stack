@@ -1,6 +1,10 @@
 # Gentleman.Dots Windows
 
-Windows native installation of the Gentleman.Dots development environment via Scoop.
+Windows native configuration for Gentleman.Dots development environment.
+
+**NOTE**: This repository contains **configuration files only**, not tool manifests.
+Tools are installed from Scoop's official [main](https://github.com/ScoopInstaller/scoop/wiki/Buckets#main-bucket) 
+and [extras](https://github.com/ScoopInstaller/Extras) buckets.
 
 ## Prerequisites
 
@@ -15,21 +19,30 @@ iwr -useb get.scoop.sh | iex
 
 ## Quick Start
 
-### 1. Add the Bucket
+### 1. Add Scoop Buckets (if not already added)
 
 ```powershell
-scoop bucket add gentleman-dots-windows https://github.com/SamuelCastrillon/gentleman-dots-windows
+scoop bucket add main
+scoop bucket add extras
 ```
 
 ### 2. Install All Tools
 
 ```powershell
-scoop install gentleman-dots-windows/neovim
-scoop install gentleman-dots-windows/nodejs-lts
-scoop install gentleman-dots-windows/lazygit
-scoop install gentleman-dots-windows/fd
-scoop install gentleman-dots-windows/ripgrep
-scoop install gentleman-dots-windows/fzf
+# Main bucket tools
+scoop install main/nvim main/nodejs-lts main/fd main/ripgrep main/fzf
+
+# Extras bucket tools
+scoop install extras/lazygit
+```
+
+### 3. Install Configuration
+
+Clone and copy the config files:
+
+```powershell
+git clone --depth 1 https://github.com/SamuelCastrillon/gentleman-dots-windows.git
+Copy-Item -Recurse gentleman-dots-windows/config/nvim/* $env:LOCALAPPDATA\nvim\
 ```
 
 Or use the automated installer:
@@ -40,14 +53,14 @@ irm https://raw.githubusercontent.com/SamuelCastrillon/gentleman-dots-windows/ma
 
 ## Included Tools
 
-| Tool | Version | Description |
-|------|---------|-------------|
-| Neovim | Latest | Modern terminal text editor |
-| Node.js LTS | Latest | JavaScript runtime (LTS) |
-| LazyGit | Latest | Terminal UI for Git |
-| fd | Latest | Fast alternative to `find` |
-| ripgrep | Latest | Fast alternative to `grep` |
-| fzf | Latest | Fuzzy finder |
+| Tool | Bucket | Description |
+|------|--------|-------------|
+| Neovim | main | Modern terminal text editor |
+| Node.js LTS | main | JavaScript runtime (LTS) |
+| fd | main | Fast alternative to `find` |
+| ripgrep | main | Fast alternative to `grep` |
+| fzf | main | Fuzzy finder |
+| LazyGit | extras | Terminal UI for Git |
 
 ## Verification
 
@@ -70,38 +83,33 @@ If `scoop` is not recognized, restart PowerShell or add Scoop to your PATH:
 $env:PATH = "$env:USERPROFILE\scoop\shims;$env:PATH"
 ```
 
-### Bucket add fails
+### Missing bucket
 
-Make sure Git is installed:
+If a tool install fails, make sure the bucket exists:
 
 ```powershell
-scoop install git
+scoop bucket add main
+scoop bucket add extras
 ```
 
-Then try adding the bucket again.
-
-### Installation fails with hash mismatch
-
-This usually means a new version was released. Update the bucket:
+### Update tools
 
 ```powershell
-scoop update gentleman-dots-windows/*
 scoop update
+scoop update *
 ```
-
-If the issue persists, [open an issue](https://github.com/SamuelCastrillon/gentleman-dots-windows/issues).
-
-### Neovim not finding config
-
-Windows path translations are applied automatically. If you have issues:
-
-```vim
-:echo stdpath('config')
-```
-
-Should return a Windows-style path like `C:\Users\<you>\AppData\Local\nvim`.
 
 ## Configuration
+
+### Structure
+
+```
+config/
+└── nvim/
+    ├── init.vim       # Main configuration
+    ├── plugins.vim    # Plugin configuration  
+    └── windows.vim    # Windows-specific overrides
+```
 
 ### Windows Path Overrides
 
@@ -123,28 +131,23 @@ $env:XDG_CONFIG_HOME = "$env:APPDATA"
 $env:VIM = "$env:LOCALAPPDATA\nvim"
 ```
 
+### Verify Config Location
+
+```vim
+:echo stdpath('config')
+```
+
+Should return a Windows-style path like `C:\Users\<you>\AppData\Local\nvim`.
+
 ## Development
 
 ### Local Testing
 
-Clone the repository and test manifests locally:
+Clone the repository and test locally:
 
 ```powershell
 git clone https://github.com/SamuelCastrillon/gentleman-dots-windows.git
 cd gentleman-dots-windows
-
-# Add as local bucket
-scoop bucket add gentleman-dots-windows ./bucket
-
-# Test install
-scoop install gentleman-dots-windows/neovim
-```
-
-### Running Tests
-
-```powershell
-# Validate manifests
-./bin/check-manifests.ps1
 
 # Run verification script
 ./scripts/verify-gentleman-dots.ps1
@@ -154,15 +157,17 @@ scoop install gentleman-dots-windows/neovim
 
 1. Fork the repository
 2. Create a feature branch
-3. Add or update manifests
+3. Make your changes
 4. Submit a pull request
 
 ## License
 
-This bucket follows the same license as Gentleman.Dots. Individual tool licenses apply to their respective packages.
+This configuration follows the same license as Gentleman.Dots. Individual tool licenses apply to their respective packages.
 
 ## Resources
 
 - [Scoop Documentation](https://scoop.sh)
 - [Scoop Buckets](https://github.com/ScoopInstaller/Bucket)
+- [Scoop Main Bucket](https://github.com/ScoopInstaller/Main)
+- [Scoop Extras Bucket](https://github.com/ScoopInstaller/Extras)
 - [Gentleman.Dots](https://github.com/gentleman-dots)
