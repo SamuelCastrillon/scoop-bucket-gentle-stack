@@ -1,13 +1,13 @@
 {
-    "version": "1.28.2",
+    "version": "1.28.3",
     "description": "AI Gentle Stack - Ecosystem configurator for AI coding agents with persistent memory, skills, and SDD workflow",
     "homepage": "https://github.com/Gentleman-Programming/gentle-ai",
     "license": {
         "identifier": "MIT",
         "url": "https://github.com/Gentleman-Programming/gentle-ai/blob/main/LICENSE"
     },
-    "url": "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v1.28.2/gentle-ai_1.28.2_windows_amd64.zip",
-    "hash": "7da4c90a1c3f7304f16c9b5b61872b229c41e7961cbf173bcce23066923f2e5d",
+    "url": "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v1.28.3/gentle-ai_1.28.3_windows_amd64.zip",
+    "hash": "8a151045ccb78bfbee7a728d46939ad12e27be80c5d9fc6cc61b646dfd141c79",
     "bin": "gentle-ai.exe",
     "checkver": {
         "github": "https://github.com/Gentleman-Programming/gentle-ai"
