@@ -1,13 +1,13 @@
 {
-    "version": "3.3.0",
+    "version": "3.3.2",
     "description": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI",
     "homepage": "https://github.com/Gentleman-Programming/engram",
     "license": {
         "identifier": "MIT",
         "url": "https://github.com/Gentleman-Programming/engram/blob/main/LICENSE"
     },
-    "url": "https://github.com/Gentleman-Programming/engram/releases/download/v3.3.0/engram_3.3.0_windows_amd64.zip",
-    "hash": "20f843dfe855191dcc7999813450a93480799bc27e3f4abeda8fa6bc4c7a468b",
+    "url": "https://github.com/Gentleman-Programming/engram/releases/download/v3.3.2/engram_3.3.2_windows_amd64.zip",
+    "hash": "e00afe91d1baade484d217606d78c2fd91e26a4f9823b603d050c1e4be78233c",
     "bin": "engram.exe",
     "checkver": {
         "github": "https://github.com/Gentleman-Programming/engram"
